@@ -19,6 +19,7 @@ let track_index = 0;
 let isPlaying = false;
 let isRandom = false;
 let updateTimer;
+let previousVolume = 1;
 
 const music_list = [
   {
@@ -189,6 +190,16 @@ function seekTo() {
 }
 function setVolume() {
   curr_track.volume = volume_slider.value / 100;
+}
+function mute() {
+  if (curr_track.volume > 0) {
+    previousVolume = curr_track.volume;
+    curr_track.volume = 0;
+    volume_slider.value = 0;
+  } else {
+    curr_track.volume = previousVolume;
+    volume_slider.value = previousVolume * 100;
+  }
 }
 function setUpdate() {
   let seekPosition = 0;
