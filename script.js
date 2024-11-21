@@ -133,15 +133,17 @@ function randomTrack() {
   randomIcon.classList.toggle("shuffleActive");
 }
 function playRandom() {
+  let randomIcon = document.querySelector(".icon-shuffle");
+  randomIcon.classList.add("shuffleActive");
   isRandom = true;
-  randomIcon.classList.add("randomActive");
 }
 function pauseRandom() {
   isRandom = false;
-  randomIcon.classList.remove("randomActive");
+  let randomIcon = document.querySelector(".icon-shuffle");
+  randomIcon.classList.remove("shuffleActive");
 }
 function repeatTrack() {
-  let repeatIcon = document.querySelector(".repeat-track");
+  let repeatIcon = document.querySelector(".icon-loop");
   repeatIcon.classList.toggle("repeatActive");
   loadTrack(track_index);
   playTrack();
@@ -154,14 +156,14 @@ function playTrack() {
   isPlaying = true;
   track_art.classList.add("rotate");
   wave.classList.add("loader");
-  playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+  playpause_btn.innerHTML = '<i class="icon-pause"></i>';
 }
 function pauseTrack() {
   curr_track.pause();
   isPlaying = false;
   track_art.classList.remove("rotate");
   wave.classList.remove("loader");
-  playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
+  playpause_btn.innerHTML = '<i class="icon-play"></i>';
 }
 function nextTrack() {
   if (track_index < music_list.length - 1 && isRandom === false) {
@@ -191,14 +193,28 @@ function seekTo() {
 function setVolume() {
   curr_track.volume = volume_slider.value / 100;
 }
+function decreaseVolume() {
+  let newVolume = Math.max(0, volume_slider.value - 10);
+  curr_track.volume = newVolume / 100;
+  volume_slider.value = newVolume;
+}
+function increaseVolume() {
+  let newVolume = Math.min(100, volume_slider.value + 10);
+  curr_track.volume = newVolume / 100;
+  volume_slider.value = newVolume;
+}
 function mute() {
   if (curr_track.volume > 0) {
     previousVolume = curr_track.volume;
     curr_track.volume = 0;
     volume_slider.value = 0;
+    let muteIcon = document.querySelector(".icon-volume-muted");
+    muteIcon.classList.add("muteActive");
   } else {
     curr_track.volume = previousVolume;
     volume_slider.value = previousVolume * 100;
+    let muteIcon = document.querySelector(".icon-volume-muted");
+    muteIcon.classList.remove("muteActive");
   }
 }
 function setUpdate() {
