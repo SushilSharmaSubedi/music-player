@@ -199,7 +199,8 @@ function decreaseVolume() {
   volume_slider.value = newVolume;
 }
 function increaseVolume() {
-  let newVolume = Math.min(100, volume_slider.value + 10);
+  let currentVolume = parseInt(volume_slider.value, 10);
+  let newVolume = Math.min(100, currentVolume + 10);
   curr_track.volume = newVolume / 100;
   volume_slider.value = newVolume;
 }
